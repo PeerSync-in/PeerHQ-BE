@@ -6,7 +6,6 @@ import config from './src/config/index.js';
 
 dotenv.config();
 
-// Create Kysely database instance
 const db = new Kysely({
   dialect: new PostgresDialect({
     pool: new Pool({
@@ -21,13 +20,14 @@ const db = new Kysely({
 
 async function testDatabaseConnection() {
   try {
-    await db.withSchema('public')
-      .selectFrom('pg_tables')
-      .select(db.raw('1').as('result'))
-      .execute();
+    await db.raw('SELECT 1');
     return true;
   } catch (error) {
-    throw new Error(`Database connection failed: ${error.message}`);
+    if (error instanceof Error) {
+      throw new Error(`Database connection failed: ${error.message}`);
+    } else {
+      throw new Error('Database connection failed: Unknown error');
+    }
   }
 }
 

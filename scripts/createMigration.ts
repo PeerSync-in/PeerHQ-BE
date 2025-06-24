@@ -10,7 +10,7 @@ if (!migrationName) {
 
 const timestamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
 const fileName = `${timestamp}_${migrationName}.ts`;
-const migrationsDir = path.join(__dirname, '../db/migrations');
+const migrationsDir = path.join(__dirname, './../migrations');
 const filePath = path.join(migrationsDir, fileName);
 
 if (!fs.existsSync(migrationsDir)) {
